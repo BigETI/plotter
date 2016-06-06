@@ -1,8 +1,11 @@
 package com.plotter.computer;
 
 import java.lang.reflect.Array;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
+
 import com.plotter.core.IComputer;
 import com.plotter.core.IPlotter;
 
@@ -43,11 +46,12 @@ public class MultiThreadedComputer<TA, TB> implements IComputer<TA, TB> {
 	@Override
 	public TA[] compute(TB[] values, Class<TA> clazz, IPlotter<TA, TB> plotter) {
 		TA[] ret = null;
+		Future<?>[] t = null;
 		int i;
 		if ((values != null) && (plotter != null)) {
-			ret = (TA[]) Array.newInstance(clazz, values.length);
+			t = new Future<?>[values.length];
 			for (i = 0; i < values.length; i++)
-				pool.submit(new AMultiThreadCall<TA>(i) {
+				t[i] = pool.submit(new AMultiThreadCall<TA>(i) {
 
 					/*
 					 * (non-Javadoc)
@@ -59,6 +63,13 @@ public class MultiThreadedComputer<TA, TB> implements IComputer<TA, TB> {
 						return plotter.plotElement(values[index]);
 					}
 				});
+			ret = (TA[]) Array.newInstance(clazz, values.length);
+			for (i = 0; i < values.length; i++)
+				try {
+					ret[i] = (TA) t[i].get();
+				} catch (InterruptedException | ExecutionException e) {
+					e.printStackTrace();
+				}
 		}
 		return ret;
 	}

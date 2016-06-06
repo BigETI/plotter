@@ -23,5 +23,5 @@ public interface IComputer<TA, TB> {
 	 *            Plotter
 	 * @return Result set
 	 */
-	public TA[] compute(TB[] values, Class<TA> clazz, IPlotter<TA, TB> plotter);
+	public abstract TA[] compute(TB[] values, Class<TA> clazz, IPlotter<TA, TB> plotter);
 }
