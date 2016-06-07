@@ -57,7 +57,7 @@ public class Polynom implements INumericAlgorithm<Double> {
 			 * @see com.plotter.core.IPlotter#plotElement(java.lang.Object)
 			 */
 			@Override
-			public Double plotElement(Double value) {
+			public Double plotElement(Double value, int index) {
 				double ret = 0;
 				for (int i = 0; i < factors.length; i++)
 					ret += factors[i] * Math.pow(value, i);
@@ -105,7 +105,7 @@ public class Polynom implements INumericAlgorithm<Double> {
 						 * Object)
 						 */
 						@Override
-						public Integer[] plotElement(Double[] value) {
+						public Integer[] plotElement(Double[] value, int index) {
 							Integer[] ret = new Integer[2];
 							ret[0] = new Integer(
 									(int) ((((double) image_width * value[0].doubleValue()) / scope_x.doubleValue()))

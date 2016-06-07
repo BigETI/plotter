@@ -7,10 +7,12 @@ import java.awt.image.BufferedImage;
  * 
  * @author Ethem Kurt
  *
- * @param <T>
- *            Result and value type
+ * @param <TA>
+ *            Result type
+ * @param <TB>
+ *            Value type
  */
-public interface IFractalAlgorithm<T extends Number> extends IAlgorithm<T, T> {
+public interface IImageAlgorithm<TA extends Number, TB extends Number> extends IAlgorithm<TA[], TB[]> {
 
 	/**
 	 * Plot image
@@ -31,6 +33,6 @@ public interface IFractalAlgorithm<T extends Number> extends IAlgorithm<T, T> {
 	 *            Image computer
 	 * @return Plotted image
 	 */
-	public BufferedImage plotImage(T x, T y, T zoom, int image_width, int image_height, IComputer<T, T> plot_computer,
-			IComputer<Integer[][], T[][]> image_computer);
+	public BufferedImage plotImage(TB x, TB y, TB zoom, int image_width, int image_height, IComputer<TA[], TB[]> plot_computer,
+			IComputer<TA[][], TB[][]> image_computer);
 }

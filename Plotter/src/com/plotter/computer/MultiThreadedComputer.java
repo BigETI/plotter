@@ -60,7 +60,7 @@ public class MultiThreadedComputer<TA, TB> implements IComputer<TA, TB> {
 					 */
 					@Override
 					public TA call() throws Exception {
-						return plotter.plotElement(values[index]);
+						return plotter.plotElement(values[index], index);
 					}
 				});
 			ret = (TA[]) Array.newInstance(clazz, values.length);

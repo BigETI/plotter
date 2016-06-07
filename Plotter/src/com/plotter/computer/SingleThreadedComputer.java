@@ -30,7 +30,7 @@ public class SingleThreadedComputer<TA, TB> implements IComputer<TA, TB> {
 		if ((values != null) && (plotter != null)) {
 			ret = (TA[]) Array.newInstance(clazz, values.length);
 			for (int i = 0; i < values.length; i++)
-				ret[i] = plotter.plotElement(values[i]);
+				ret[i] = plotter.plotElement(values[i], i);
 		}
 		return ret;
 	}

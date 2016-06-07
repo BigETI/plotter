@@ -4,10 +4,10 @@ import java.awt.image.BufferedImage;
 import java.math.BigDecimal;
 
 import com.plotter.core.IComputer;
-import com.plotter.core.IFractalAlgorithm;
+import com.plotter.core.IImageAlgorithm;
 import com.plotter.core.IPlotter;
 
-public class Mandelbrot implements IFractalAlgorithm<BigDecimal> {
+public class Mandelbrot implements IImageAlgorithm<Long, BigDecimal> {
 
 	/*
 	 * (non-Javadoc)
@@ -16,17 +16,15 @@ public class Mandelbrot implements IFractalAlgorithm<BigDecimal> {
 	 * com.plotter.core.IComputer)
 	 */
 	@Override
-	public BigDecimal[] plot(BigDecimal[] variables, IComputer<BigDecimal, BigDecimal> computer) {
-		return computer.compute(variables, BigDecimal.class, new IPlotter<BigDecimal, BigDecimal>() {
+	public Long[][] plot(BigDecimal[][] variables, IComputer<Long[], BigDecimal[]> computer) {
+		return computer.compute(variables, Long[].class, new IPlotter<Long[], BigDecimal[]>() {
 
-			/*
-			 * (non-Javadoc)
-			 * 
-			 * @see com.plotter.core.IPlotter#plotElement(java.lang.Object)
-			 */
 			@Override
-			public BigDecimal plotElement(BigDecimal value) {
-				return null;
+			public Long[] plotElement(BigDecimal[] value, int index) {
+				Long[] ret = new Long[2];
+				ret[0] = 0L;
+				ret[1] = 0L;
+				return ret;
 			}
 		});
 	}
@@ -40,8 +38,12 @@ public class Mandelbrot implements IFractalAlgorithm<BigDecimal> {
 	 */
 	@Override
 	public BufferedImage plotImage(BigDecimal x, BigDecimal y, BigDecimal zoom, int image_width, int image_height,
-			IComputer<BigDecimal, BigDecimal> plot_computer, IComputer<Integer[][], BigDecimal[][]> image_computer) {
-		return null;
+			IComputer<Long[], BigDecimal[]> plot_computer, IComputer<Long[][], BigDecimal[][]> image_computer) {
+		BufferedImage ret = null;
+		if ((image_width > 0) && (image_height > 0)) {
+			
+		}
+		return ret;
 	}
 
 }
