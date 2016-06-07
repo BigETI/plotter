@@ -46,7 +46,7 @@ public class BigETIColoredSpikes implements IImageAlgorithm<Integer, BigDecimal>
 			BigDecimal[][] variables = new BigDecimal[image_width][image_height];
 			for (i = 0; i < variables.length; i++) {
 				for (j = 0; j < variables[i].length; j++)
-					variables[i][j] = (new BigDecimal(i)).divide(width, 128, RoundingMode.CEILING).add((new BigDecimal(j)).divide(height, 128, RoundingMode.CEILING))
+					variables[i][j] = (new BigDecimal(i)).add(x).multiply(zoom).divide(width, 128, RoundingMode.CEILING).add((new BigDecimal(j)).add(y).multiply(zoom).divide(height, 128, RoundingMode.CEILING))
 							.subtract(BigDecimal.ONE);
 			}
 			Integer[][] results = plot(variables, new MultiThreadedComputer<Integer[], BigDecimal[]>(8));
