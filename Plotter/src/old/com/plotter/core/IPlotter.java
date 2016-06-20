@@ -17,6 +17,8 @@ public interface IPlotter<TA, TB> {
 	 * 
 	 * @param value
 	 *            Values of the n space
+	 * @param index
+	 *            Index
 	 * @return Result
 	 */
 	public TA plotElement(TB value, int index);

@@ -31,7 +31,7 @@ public class PolynomTest {
 	/**
 	 * Set up
 	 * 
-	 * @throws Exception
+	 * @throws Exception Setup exception
 	 */
 	@Before
 	public void setUp() throws Exception {
