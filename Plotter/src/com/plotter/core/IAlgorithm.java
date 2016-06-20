@@ -4,22 +4,22 @@ package com.plotter.core;
  * Algorithm interface
  * 
  * @author Ethem Kurt
+ * @version 1.0.0
+ * @since 1.0.0
  *
  * @param <TA>
- *            Result type
+ *            Result value
  * @param <TB>
- *            Value type
+ *            Input value
  */
 public interface IAlgorithm<TA, TB> {
 
 	/**
-	 * Plot algorithm
+	 * Compute algorithm
 	 * 
-	 * @param variables
-	 *            Variables
-	 * @param computer
-	 *            Computer
-	 * @return Result set
+	 * @param value
+	 *            Value
+	 * @return Result
 	 */
-	public TA[] plot(TB[] variables, IComputer<TA, TB> computer);
+	public TA compute(TB value);
 }

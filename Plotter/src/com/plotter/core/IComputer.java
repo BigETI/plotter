@@ -1,27 +1,27 @@
 package com.plotter.core;
 
 /**
- * Computer interface
+ * Algorithm computer interface
  * 
  * @author Ethem Kurt
+ * @version 1.0.0
+ * @since 1.0.0
  *
  * @param <TA>
  *            Result type
  * @param <TB>
- *            Value type
+ *            Input type
  */
 public interface IComputer<TA, TB> {
 
 	/**
-	 * Compute
+	 * Compute algorithm
 	 * 
 	 * @param values
 	 *            Values
-	 * @param clazz
-	 *            Class type of TA
-	 * @param plotter
-	 *            Plotter
-	 * @return Result set
+	 * @param algorithm
+	 *            Algorithm
+	 * @return Result
 	 */
-	public abstract TA[] compute(TB[] values, Class<TA> clazz, IPlotter<TA, TB> plotter);
+	public Results<TA, TB> compute(Iterable<TB> values, IAlgorithm<TA, TB> algorithm);
 }

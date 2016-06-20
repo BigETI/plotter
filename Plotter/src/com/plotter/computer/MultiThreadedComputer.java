@@ -1,23 +1,26 @@
 package com.plotter.computer;
 
-import java.lang.reflect.Array;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
+import com.plotter.core.IAlgorithm;
 import com.plotter.core.IComputer;
-import com.plotter.core.IPlotter;
+import com.plotter.core.Result;
+import com.plotter.core.Results;
 
 /**
  * Multi threaded computer class
  * 
  * @author Ethem Kurt
+ * @version 1.0.0
+ * @since 1.0.0
  *
  * @param <TA>
  *            Result type
  * @param <TB>
- *            Value type
+ *            Input type
  */
 public class MultiThreadedComputer<TA, TB> implements IComputer<TA, TB> {
 
@@ -25,6 +28,13 @@ public class MultiThreadedComputer<TA, TB> implements IComputer<TA, TB> {
 	 * Thread pool
 	 */
 	private ExecutorService pool;
+
+	/**
+	 * Default constructor
+	 */
+	public MultiThreadedComputer() {
+		this(Runtime.getRuntime().availableProcessors());
+	}
 
 	/**
 	 * Constructor
@@ -39,39 +49,29 @@ public class MultiThreadedComputer<TA, TB> implements IComputer<TA, TB> {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see com.plotter.core.IComputer#compute(java.lang.Object[],
-	 * com.plotter.core.IPlotter)
+	 * @see com.plotter.core.IComputer#compute(java.lang.Class,
+	 * java.lang.Iterable, com.plotter.core.IAlgorithm)
 	 */
-	@SuppressWarnings("unchecked")
 	@Override
-	public TA[] compute(TB[] values, Class<TA> clazz, IPlotter<TA, TB> plotter) {
-		TA[] ret = null;
-		Future<?>[] t = null;
-		int i;
-		if ((values != null) && (plotter != null)) {
-			t = new Future<?>[values.length];
-			for (i = 0; i < values.length; i++)
-				t[i] = pool.submit(new AMultiThreadCall<TA>(i) {
+	public Results<TA, TB> compute(Iterable<TB> values, IAlgorithm<TA, TB> algorithm) {
+		Results<TA, TB> ret = new Results<>();
+		Results<Future<TA>, TB> futures = new Results<>();
+		for (TB i : values) {
+			futures.add(new Result<>(pool.submit(new ACall<TA, TB>(i) {
 
-					/*
-					 * (non-Javadoc)
-					 * 
-					 * @see java.util.concurrent.Callable#call()
-					 */
-					@Override
-					public TA call() throws Exception {
-						return plotter.plotElement(values[index], index);
-					}
-				});
-			ret = (TA[]) Array.newInstance(clazz, values.length);
-			for (i = 0; i < values.length; i++)
-				try {
-					ret[i] = (TA) t[i].get();
-				} catch (InterruptedException | ExecutionException e) {
-					e.printStackTrace();
+				@Override
+				public TA call() throws Exception {
+					return algorithm.compute(VALUE);
 				}
+			}), i));
+		}
+		for (Result<Future<TA>, TB> i : futures) {
+			try {
+				ret.add(new Result<>(i.RESULT.get(), i.VALUE));
+			} catch (InterruptedException | ExecutionException e) {
+				e.printStackTrace();
+			}
 		}
 		return ret;
 	}
-
 }

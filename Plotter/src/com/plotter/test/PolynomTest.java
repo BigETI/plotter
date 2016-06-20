@@ -1,6 +1,6 @@
 package com.plotter.test;
 
-import java.awt.image.BufferedImage;
+import java.awt.Color;
 import java.io.File;
 import java.io.IOException;
 
@@ -10,13 +10,15 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.plotter.algorithms.Polynom;
-import com.plotter.computer.MultiThreadedComputer;
-import com.plotter.computer.SingleThreadedComputer;
+import com.plotter.core.DoubleRange;
+import com.plotter.visuals.ImageGraph;
 
 /**
  * Polynom test class
  * 
- * @author Ethem Kurt
+ * @author EThem Kurt
+ * @version 1.0.0
+ * @since 1.0.0
  *
  */
 public class PolynomTest {
@@ -24,21 +26,21 @@ public class PolynomTest {
 	/**
 	 * Polynom
 	 */
-	private Polynom poly;
+	private Polynom polynom;
 
 	/**
 	 * Set up
 	 * 
 	 * @throws Exception
-	 *             Exception
 	 */
 	@Before
 	public void setUp() throws Exception {
 		double[] factors = new double[4];
-		for (int i = 0; i < factors.length; i++)
-			factors[i] = Math.random();
-		poly = new Polynom(factors);
-		System.out.println(poly);
+		factors[0] = 0.0;
+		factors[1] = 0.0;
+		factors[2] = 0.0;
+		factors[3] = 1.0;
+		polynom = new Polynom(factors);
 	}
 
 	/**
@@ -46,29 +48,11 @@ public class PolynomTest {
 	 */
 	@Test
 	public void test() {
-		Double[] values = new Double[10000];
-		for (int i = 0; i < values.length; i++)
-			values[i] = ((double) i) - 6.0;
-//		long a, b;
-
-		// Single threaded
-//		a = System.currentTimeMillis();
-		poly.plot(values, new SingleThreadedComputer<Double, Double>());
-//		b = System.currentTimeMillis();
-//		System.out.println("SingleThreadedComputer took " + (b - a) + "ms.");
-
-		// Multi threaded (8 threads)
-//		a = System.currentTimeMillis();
-		poly.plot(values, new MultiThreadedComputer<Double, Double>(8));
-//		b = System.currentTimeMillis();
-//		System.out.println("MultiThreadedComputer took " + (b - a) + "ms.");
-
-		// Create plot image
-		BufferedImage image = poly.plotImage(-100.0, 100.0, 200.0, 200.0, 1000, 1920, 1080,
-				new MultiThreadedComputer<Double, Double>(8), new MultiThreadedComputer<Integer[], Double[]>(8));
-		File f = new File("testplot.png");
+		ImageGraph<Double, Double> graph = new ImageGraph<Double, Double>(1920, 1080, 100.0, 100.0, 0.0, 0.0);
+		graph.plot(new DoubleRange(-100.0, 100.0, 10000), polynom, Color.WHITE);
+		File f = new File("wtfplot.png");
 		try {
-			ImageIO.write(image, "PNG", f);
+			ImageIO.write(graph, "PNG", f);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
