@@ -27,4 +27,9 @@ public interface IGraph<TA extends Number, TB extends Number> {
 	 *            Line color
 	 */
 	public void plot(Iterable<TB> values, IAlgorithm<TA, TB> algorithm, Color line_color);
+	
+	/**
+	 * Clear graph
+	 */
+	public void clearGraph();
 }

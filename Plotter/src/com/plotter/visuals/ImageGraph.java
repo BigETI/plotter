@@ -37,6 +37,11 @@ public class ImageGraph<TA extends Number, TB extends Number> extends BufferedIm
 	private Point<TA> offset;
 
 	/**
+	 * Background color
+	 */
+	private Color background_color;
+
+	/**
 	 * Constructor
 	 * 
 	 * @param width
@@ -108,6 +113,15 @@ public class ImageGraph<TA extends Number, TB extends Number> extends BufferedIm
 		return offset;
 	}
 
+	/**
+	 * Get background color
+	 * 
+	 * @return Background color
+	 */
+	public Color getBackgroundColor() {
+		return background_color;
+	}
+
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -128,6 +142,16 @@ public class ImageGraph<TA extends Number, TB extends Number> extends BufferedIm
 							/ view.Y.doubleValue())) - (getHeight() * 0.5))));
 		}
 		getGraphics().drawPolyline(p.xpoints, p.ypoints, p.npoints);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.plotter.core.IGraph#clearGraph()
+	 */
+	@Override
+	public void clearGraph() {
+		getGraphics().clearRect(0, 0, getWidth(), getHeight());
 	}
 
 }
