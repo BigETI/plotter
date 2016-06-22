@@ -3,7 +3,6 @@ package com.plotter.visuals;
 import java.awt.Color;
 import java.awt.Polygon;
 import java.awt.image.BufferedImage;
-
 import com.plotter.computer.MultiThreadedComputer;
 import com.plotter.core.IAlgorithm;
 import com.plotter.core.IComputer;
@@ -80,17 +79,15 @@ public class ImageGraph<TA extends Number, TB extends Number> extends BufferedIm
 	 *            Background color
 	 */
 	public ImageGraph(int width, int height, TA x_view, TA y_view, TA x_offset, TA y_offset, Color background_color) {
-		super(width, height, BufferedImage.TYPE_INT_ARGB);
+		super(width, height, BufferedImage.TYPE_INT_RGB);
 		view = new Point<>(x_view, y_view);
 		offset = new Point<>(x_offset, y_offset);
-		if (background_color != null) {
-			getGraphics().setColor(background_color);
-			getGraphics().fillRect(0, 0, width, height);
-		}
-		getGraphics().setColor(Color.WHITE);
+		this.background_color = background_color;
+		clearGraph();
 		int x = (int) (((((double) getWidth() * offset.X.doubleValue()) / view.X.doubleValue())) + (getWidth() * 0.5));
 		int y = (-(int) (((((double) getHeight() * offset.Y.doubleValue()) / view.Y.doubleValue()))
 				- (getHeight() * 0.5)));
+		getGraphics().setColor(Color.WHITE);
 		getGraphics().drawLine(0, y, getWidth(), y);
 		getGraphics().drawLine(x, 0, x, getHeight());
 	}
@@ -122,19 +119,18 @@ public class ImageGraph<TA extends Number, TB extends Number> extends BufferedIm
 		return background_color;
 	}
 
-	/*
-	 * (non-Javadoc)
+	/**
+	 * Draw results
 	 * 
-	 * @see com.plotter.core.IGraph#plot(java.lang.Iterable,
-	 * com.plotter.core.IAlgorithm, java.awt.Color)
+	 * @param results
+	 *            Results
+	 * @param line_color
+	 *            Line color
 	 */
-	@Override
-	public void plot(Iterable<TB> values, IAlgorithm<TA, TB> algorithm, Color line_color) {
-		IComputer<TA, TB> computer = new MultiThreadedComputer<>();
-		Results<TA, TB> result = computer.compute(values, algorithm);
+	public void drawResults(Results<TA, TB> results, Color line_color) {
 		getGraphics().setColor(line_color);
 		Polygon p = new Polygon();
-		for (Result<TA, TB> i : result) {
+		for (Result<TA, TB> i : results) {
 			p.addPoint(
 					(int) (((((double) getWidth() * (i.VALUE.doubleValue() + offset.X.doubleValue()))
 							/ view.X.doubleValue())) + (getWidth() * 0.5)),
@@ -147,11 +143,29 @@ public class ImageGraph<TA extends Number, TB extends Number> extends BufferedIm
 	/*
 	 * (non-Javadoc)
 	 * 
+	 * @see com.plotter.core.IGraph#plot(java.lang.Iterable,
+	 * com.plotter.core.IAlgorithm, java.awt.Color)
+	 */
+	@Override
+	public Results<TA, TB> plot(Iterable<TB> values, IAlgorithm<TA, TB> algorithm, Color line_color) {
+		IComputer<TA, TB> computer = new MultiThreadedComputer<>();
+		Results<TA, TB> ret = computer.compute(values, algorithm);
+		drawResults(ret, line_color);
+		return ret;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see com.plotter.core.IGraph#clearGraph()
 	 */
 	@Override
 	public void clearGraph() {
-		getGraphics().clearRect(0, 0, getWidth(), getHeight());
+		flush();
+		if (background_color != null) {
+			getGraphics().setColor(background_color);
+			getGraphics().fillRect(0, 0, getWidth(), getHeight());
+		}
 	}
 
 }

@@ -17,15 +17,30 @@ import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.JSeparator;
 
 public class TestPanelGraphForm extends JFrame {
 
+	/**
+	 * Serial version UID
+	 */
+	private static final long serialVersionUID = -3475129906847394071L;
+
+	/**
+	 * Content pane
+	 */
 	private JPanel contentPane;
 
+	/**
+	 * Panel graph
+	 */
 	private PanelGraph<Double, Double> panelGraph;
 
 	/**
-	 * Launch the application.
+	 * Launch the application
+	 * 
+	 * @param args
+	 *            Command line arguments
 	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -64,12 +79,11 @@ public class TestPanelGraphForm extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				double[] factors = new double[4];
 				factors[0] = 0.0;
-				factors[1] = 0.0;
+				factors[1] = -2.0;
 				factors[2] = 0.0;
-				factors[3] = 1.0;
+				factors[3] = 0.02;
 				Polynom polynom = new Polynom(factors);
-				panelGraph.clearGraph();
-				panelGraph.plot(new DoubleRange(100.0, 100.0, 10000), polynom, Color.WHITE);
+				panelGraph.plot(new DoubleRange(-100.0, 100.0, 1000), polynom, Color.WHITE);
 			}
 		});
 		mnEdit.add(mntmDrawPolynom);
@@ -81,11 +95,10 @@ public class TestPanelGraphForm extends JFrame {
 
 					@Override
 					public Double compute(Double value) {
-						return Math.sin(value);
+						return (Math.sin(value) * 50.0);
 					}
 				};
-				panelGraph.clearGraph();
-				panelGraph.plot(new DoubleRange(100.0, 100.0, 10000), algorithm, Color.WHITE);
+				panelGraph.plot(new DoubleRange(-100.0, 100.0, 1000), algorithm, Color.WHITE);
 			}
 		});
 		mnEdit.add(mntmDrawSinus);
@@ -97,21 +110,31 @@ public class TestPanelGraphForm extends JFrame {
 
 					@Override
 					public Double compute(Double value) {
-						return (Math.random() - 0.5);
+						return ((Math.random() * 100.0) - 50.0);
 					}
 				};
-				panelGraph.clearGraph();
-				panelGraph.plot(new DoubleRange(100.0, 100.0, 10000), algorithm, Color.WHITE);
+				panelGraph.plot(new DoubleRange(-100.0, 100.0, 1000), algorithm, Color.WHITE);
 			}
 		});
 		mnEdit.add(mntmDrawRandom);
+
+		JSeparator separator = new JSeparator();
+		mnEdit.add(separator);
+
+		JMenuItem mntmClearGraph = new JMenuItem("Clear graph");
+		mntmClearGraph.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				panelGraph.clearGraph();
+			}
+		});
+		mnEdit.add(mntmClearGraph);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
 
-		panelGraph = new PanelGraph<Double, Double>(-100.0, 100.0, 0.0, 0.0);
-		panelGraph.setSize(100, 100);
+		panelGraph = new PanelGraph<Double, Double>(100.0, 100.0, 0.0, 0.0);
+		panelGraph.setSize(contentPane.getPreferredSize().width, contentPane.getPreferredSize().height);
 		contentPane.add(panelGraph, BorderLayout.CENTER);
 	}
 

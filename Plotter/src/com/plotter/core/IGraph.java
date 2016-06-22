@@ -25,9 +25,10 @@ public interface IGraph<TA extends Number, TB extends Number> {
 	 *            Algorithm
 	 * @param line_color
 	 *            Line color
+	 * @return Results
 	 */
-	public void plot(Iterable<TB> values, IAlgorithm<TA, TB> algorithm, Color line_color);
-	
+	public Results<TA, TB> plot(Iterable<TB> values, IAlgorithm<TA, TB> algorithm, Color line_color);
+
 	/**
 	 * Clear graph
 	 */
