@@ -316,6 +316,7 @@ public class PanelGraph<TA extends Number, TB extends Number> extends JPanel imp
 		cached_results.clear();
 		if (image_graph != null) {
 			image_graph.clearGraph();
+			image_graph = null;
 			repaint();
 		}
 	}

@@ -4,10 +4,12 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.EventQueue;
 
+import javax.script.ScriptException;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import com.plotter.algorithms.JSAlgorithm;
 import com.plotter.algorithms.Polynom;
 import com.plotter.core.DoubleRange;
 import com.plotter.core.IAlgorithm;
@@ -15,6 +17,8 @@ import com.plotter.visuals.PanelGraph;
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JSeparator;
@@ -117,6 +121,19 @@ public class TestPanelGraphForm extends JFrame {
 			}
 		});
 		mnEdit.add(mntmDrawRandom);
+
+		JMenuItem mntmDrawJavaScript = new JMenuItem("Draw JavaScript");
+		mntmDrawJavaScript.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				String script = JOptionPane.showInputDialog(null, "Type in a script to draw: ", "Draw JavaScript input", 1);
+				try {
+					panelGraph.plot(new DoubleRange(-100.0, 100.0, 1000), new JSAlgorithm(script), Color.WHITE);
+				} catch (IllegalArgumentException | ScriptException e) {
+					e.printStackTrace();
+				}
+			}
+		});
+		mnEdit.add(mntmDrawJavaScript);
 
 		JSeparator separator = new JSeparator();
 		mnEdit.add(separator);
