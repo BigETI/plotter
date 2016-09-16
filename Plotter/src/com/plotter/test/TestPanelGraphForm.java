@@ -127,7 +127,7 @@ public class TestPanelGraphForm extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				String script = JOptionPane.showInputDialog(null, "Type in a script to draw: ", "Draw JavaScript input", 1);
 				try {
-					panelGraph.plot(new DoubleRange(-100.0, 100.0, 1000), new JSAlgorithm(script), Color.WHITE);
+					panelGraph.plot(new DoubleRange(-100.0, 100.0, 1000), new JSAlgorithm("y = " + script + ";"), Color.WHITE);
 				} catch (IllegalArgumentException | ScriptException e) {
 					e.printStackTrace();
 				}
