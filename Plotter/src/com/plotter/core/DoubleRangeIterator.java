@@ -43,4 +43,9 @@ public class DoubleRangeIterator extends ARangeIterator<Double> {
 		return ret;
 	}
 
+	@Override
+	public void remove() {
+		//
+	}
+
 }

@@ -35,4 +35,12 @@ public class BigDecimalRangeIterator extends ARangeIterator<BigDecimal> {
 		return ret;
 	}
 
+	/* (non-Javadoc)
+	 * @see java.util.Iterator#remove()
+	 */
+	@Override
+	public void remove() {
+		//
+	}
+
 }
