@@ -29,6 +29,7 @@ public class DoubleRangeIterator extends ARangeIterator<Double>
 
 	/*
 	 * (non-Javadoc)
+	 * 
 	 * @see java.util.Iterator#next()
 	 */
 	@Override

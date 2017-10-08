@@ -13,17 +13,36 @@ import com.bigeti.plotter.core.DoubleRange;
 import com.bigeti.plotter.core.IAlgorithm;
 import com.bigeti.plotter.visuals.ImageGraph;
 
+/**
+ * Random test class
+ *
+ * @author Ethem Kurt
+ * @version 1.0.0
+ * @since 1.0.0
+ */
 public class RandomTest
 {
 
+	/**
+	 * Random algorithm
+	 */
 	private IAlgorithm<Double, Double> rand_algorithm;
 
+	/**
+	 * Set up
+	 * 
+	 * @throws Exception
+	 *             Exception
+	 */
 	@BeforeAll
 	public void setUp() throws Exception
 	{
 		rand_algorithm = value -> Math.random();
 	}
 
+	/**
+	 * Test
+	 */
 	@Test
 	public void test()
 	{

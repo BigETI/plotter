@@ -17,12 +17,13 @@ import com.bigeti.plotter.core.Results;
  * @version 1.0.0
  * @since 1.0.0
  *
- * @param <TA>
+ * @param <A>
  *            Result type
- * @param <TB>
+ * @param <B>
  *            Input type
  */
-public class MultiThreadedComputer<TA, TB> implements IComputer<TA, TB> {
+public class MultiThreadedComputer<A, B> implements IComputer<A, B>
+{
 
 	/**
 	 * Thread pool
@@ -32,7 +33,8 @@ public class MultiThreadedComputer<TA, TB> implements IComputer<TA, TB> {
 	/**
 	 * Default constructor
 	 */
-	public MultiThreadedComputer() {
+	public MultiThreadedComputer()
+	{
 		this(Runtime.getRuntime().availableProcessors());
 	}
 
@@ -42,33 +44,42 @@ public class MultiThreadedComputer<TA, TB> implements IComputer<TA, TB> {
 	 * @param threads
 	 *            Threads
 	 */
-	public MultiThreadedComputer(int threads) {
+	public MultiThreadedComputer(int threads)
+	{
 		pool = Executors.newFixedThreadPool(threads);
 	}
 
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see com.plotter.core.IComputer#compute(java.lang.Class,
-	 * java.lang.Iterable, com.plotter.core.IAlgorithm)
+	 * @see com.plotter.core.IComputer#compute(java.lang.Class, java.lang.Iterable,
+	 * com.plotter.core.IAlgorithm)
 	 */
 	@Override
-	public Results<TA, TB> compute(Iterable<TB> values, IAlgorithm<TA, TB> algorithm) {
-		Results<TA, TB> ret = new Results<>();
-		Results<Future<TA>, TB> futures = new Results<>();
-		for (TB i : values) {
-			futures.add(new Result<>(pool.submit(new ACall<TA, TB>(i) {
+	public Results<A, B> compute(Iterable<B> values, IAlgorithm<A, B> algorithm)
+	{
+		Results<A, B> ret = new Results<>();
+		Results<Future<A>, B> futures = new Results<>();
+		for (B i : values)
+		{
+			futures.add(new Result<>(pool.submit(new ACall<A, B>(i)
+			{
 
 				@Override
-				public TA call() throws Exception {
+				public A call() throws Exception
+				{
 					return algorithm.compute(VALUE);
 				}
 			}), i));
 		}
-		for (Result<Future<TA>, TB> i : futures) {
-			try {
+		for (Result<Future<A>, B> i : futures)
+		{
+			try
+			{
 				ret.add(new Result<>(i.RESULT.get(), i.VALUE));
-			} catch (InterruptedException | ExecutionException e) {
+			}
+			catch (InterruptedException | ExecutionException e)
+			{
 				e.printStackTrace();
 			}
 		}

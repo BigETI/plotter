@@ -3,7 +3,15 @@ package com.bigeti.plotter.core;
 import java.math.BigDecimal;
 import java.util.NoSuchElementException;
 
-public class BigDecimalRangeIterator extends ARangeIterator<BigDecimal> {
+/**
+ * Big decimal range iterator class
+ * 
+ * @author Ethem Kurt
+ * @version 1.0.0
+ * @since 1.0.0
+ */
+public class BigDecimalRangeIterator extends ARangeIterator<BigDecimal>
+{
 
 	/**
 	 * Constructor
@@ -15,7 +23,8 @@ public class BigDecimalRangeIterator extends ARangeIterator<BigDecimal> {
 	 * @param steps
 	 *            Steps
 	 */
-	public BigDecimalRangeIterator(BigDecimal from, BigDecimal to, int steps) {
+	public BigDecimalRangeIterator(BigDecimal from, BigDecimal to, int steps)
+	{
 		super(from, to, steps);
 	}
 
@@ -25,21 +34,30 @@ public class BigDecimalRangeIterator extends ARangeIterator<BigDecimal> {
 	 * @see java.util.Iterator#next()
 	 */
 	@Override
-	public BigDecimal next() {
+	public BigDecimal next()
+	{
 		BigDecimal ret;
-		if (hasNext()) {
-			ret = getTo().subtract(getFrom()).multiply(new BigDecimal(getStep()).divide(new BigDecimal(getSteps()))).add(getFrom());
+		if (hasNext())
+		{
+			ret = getTo().subtract(getFrom()).multiply(new BigDecimal(getStep()).divide(new BigDecimal(getSteps())))
+					.add(getFrom());
 			++step;
-		} else
+		}
+		else
+		{
 			throw new NoSuchElementException();
+		}
 		return ret;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.util.Iterator#remove()
 	 */
 	@Override
-	public void remove() {
+	public void remove()
+	{
 		//
 	}
 

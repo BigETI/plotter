@@ -10,7 +10,8 @@ import java.util.Iterator;
  * @since 1.0.0
  *
  */
-public class DoubleRange extends ARange<Double> {
+public class DoubleRange extends ARange<Double>
+{
 
 	/**
 	 * Constructor
@@ -24,7 +25,8 @@ public class DoubleRange extends ARange<Double> {
 	 * @throws IllegalArgumentException
 	 *             If "steps" is negative
 	 */
-	public DoubleRange(Double from, Double to, int steps) throws IllegalArgumentException {
+	public DoubleRange(Double from, Double to, int steps) throws IllegalArgumentException
+	{
 		super(from, to, steps);
 	}
 
@@ -34,7 +36,8 @@ public class DoubleRange extends ARange<Double> {
 	 * @see java.lang.Iterable#iterator()
 	 */
 	@Override
-	public Iterator<Double> iterator() {
+	public Iterator<Double> iterator()
+	{
 		return new DoubleRangeIterator(getFrom(), getTo(), getSteps());
 	}
 

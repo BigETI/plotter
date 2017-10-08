@@ -9,22 +9,16 @@ import java.util.ArrayList;
  * @version 1.0.0
  * @since 1.0.0
  *
- * @param <TA>
+ * @param <A>
  *            Result type
- * @param <TB>
+ * @param <B>
  *            Input type
  */
-public class Results<TA, TB> extends ArrayList<Result<TA, TB>> {
+public class Results<A, B> extends ArrayList<Result<A, B>>
+{
 
 	/**
 	 * Serial version UID
 	 */
 	private static final long serialVersionUID = 1062398075008657156L;
-
-	/**
-	 * Default constructor
-	 */
-	public Results() {
-		super();
-	}
 }

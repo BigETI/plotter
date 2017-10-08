@@ -10,7 +10,8 @@ package com.bigeti.plotter.core;
  * @param <T>
  *            Return type
  */
-public class Point<T extends Number> {
+public class Point<T extends Number>
+{
 
 	/**
 	 * X
@@ -30,7 +31,8 @@ public class Point<T extends Number> {
 	 * @param y
 	 *            Y
 	 */
-	public Point(T x, T y) {
+	public Point(T x, T y)
+	{
 		X = x;
 		Y = y;
 	}

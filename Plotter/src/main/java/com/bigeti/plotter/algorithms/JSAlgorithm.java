@@ -20,7 +20,8 @@ import com.bigeti.plotter.core.IAlgorithm;
  * @since 1.0.1
  *
  */
-public class JSAlgorithm implements IAlgorithm<Double, Double> {
+public class JSAlgorithm implements IAlgorithm<Double, Double>
+{
 
 	/**
 	 * Script engine
@@ -55,7 +56,8 @@ public class JSAlgorithm implements IAlgorithm<Double, Double> {
 	 * @throws ScriptException
 	 *             Script exception
 	 */
-	public JSAlgorithm(String script) throws ScriptException {
+	public JSAlgorithm(String script) throws ScriptException
+	{
 		setScript(script);
 	}
 
@@ -64,7 +66,8 @@ public class JSAlgorithm implements IAlgorithm<Double, Double> {
 	 * 
 	 * @return Script engine
 	 */
-	public ScriptEngine getScriptEngine() {
+	public ScriptEngine getScriptEngine()
+	{
 		return script_engine;
 	}
 
@@ -73,7 +76,8 @@ public class JSAlgorithm implements IAlgorithm<Double, Double> {
 	 * 
 	 * @return Compiled script
 	 */
-	public CompiledScript getCompiledScript() {
+	public CompiledScript getCompiledScript()
+	{
 		return compiled_script;
 	}
 
@@ -82,7 +86,8 @@ public class JSAlgorithm implements IAlgorithm<Double, Double> {
 	 * 
 	 * @return Script
 	 */
-	public String getScript() {
+	public String getScript()
+	{
 		return script;
 	}
 
@@ -94,14 +99,21 @@ public class JSAlgorithm implements IAlgorithm<Double, Double> {
 	 * @throws ScriptException
 	 *             Script exception
 	 */
-	public void setScript(String script) throws ScriptException {
+	public void setScript(String script) throws ScriptException
+	{
 		ScriptEngine se = new ScriptEngineManager().getEngineByName("JavaScript");
 		StringWriter sw = new StringWriter();
 		StringWriter ew = new StringWriter();
-		/*CompiledScript cs = ((Compilable) se).compile("var MathEx = Object.create(Math);\nMathEx.compute = function(x) {\nvar y = 0.0;\n" + script
-				+ "\nreturn y;\n};\nfunction compute(x) {\nreturn MathEx.compute(x);\n}\n");*/
-		
-		CompiledScript cs = ((Compilable) se).compile("var names = Object.getOwnPropertyNames(Math);\nfor (var k in names)\nthis[names[k]] = Math[names[k]];\nfunction compute(x) {\nvar y = 0.0;\n" + script + "\nreturn y;\n}\n");
+		/*
+		 * CompiledScript cs = ((Compilable) se).
+		 * compile("var MathEx = Object.create(Math);\nMathEx.compute = function(x) {\nvar y = 0.0;\n"
+		 * + script +
+		 * "\nreturn y;\n};\nfunction compute(x) {\nreturn MathEx.compute(x);\n}\n");
+		 */
+
+		CompiledScript cs = ((Compilable) se).compile(
+				"var names = Object.getOwnPropertyNames(Math);\nfor (var k in names)\nthis[names[k]] = Math[names[k]];\nfunction compute(x) {\nvar y = 0.0;\n"
+						+ script + "\nreturn y;\n}\n");
 		Bindings bindings = se.getBindings(ScriptContext.ENGINE_SCOPE);
 		cs.eval(bindings);
 		se.getContext().setWriter(sw);
@@ -117,11 +129,18 @@ public class JSAlgorithm implements IAlgorithm<Double, Double> {
 	 * 
 	 * @return Output
 	 */
-	public String getOutput() {
+	public String getOutput()
+	{
 		return writer.toString();
 	}
 
-	public String getError() {
+	/**
+	 * Get error
+	 * 
+	 * @return Error
+	 */
+	public String getError()
+	{
 		return error_writer.toString();
 	}
 
@@ -131,15 +150,23 @@ public class JSAlgorithm implements IAlgorithm<Double, Double> {
 	 * @see com.plotter.core.IAlgorithm#compute(java.lang.Object)
 	 */
 	@Override
-	public Double compute(Double value) {
+	public Double compute(Double value)
+	{
 		Double ret = 0.0;
-		try {
+		try
+		{
 			Object result = ((Invocable) compiled_script.getEngine()).invokeFunction("compute", value);
 			if (result != null)
+			{
 				ret = Double.valueOf(result.toString());
+			}
 			else
+			{
 				System.err.println("result is null!");
-		} catch (ScriptException | NoSuchMethodException e) {
+			}
+		}
+		catch (ScriptException | NoSuchMethodException e)
+		{
 			e.printStackTrace();
 		}
 		return ret;

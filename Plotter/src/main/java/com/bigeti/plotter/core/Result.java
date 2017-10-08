@@ -1,28 +1,29 @@
 package com.bigeti.plotter.core;
 
 /**
- * Pair class
+ * Result pair class
  * 
  * @author Ethem Kurt
  * @version 1.0.0
  * @since 1.0.0
  *
- * @param <TA>
+ * @param <A>
  *            Result type
- * @param <TB>
+ * @param <B>
  *            Value type
  */
-public class Result<TA, TB> {
+public class Result<A, B>
+{
 
 	/**
 	 * Result
 	 */
-	public final TA RESULT;
+	public final A RESULT;
 
 	/**
 	 * Value
 	 */
-	public final TB VALUE;
+	public final B VALUE;
 
 	/**
 	 * Constructor
@@ -32,7 +33,8 @@ public class Result<TA, TB> {
 	 * @param value
 	 *            Value
 	 */
-	public Result(TA result, TB value) {
+	public Result(A result, B value)
+	{
 		RESULT = result;
 		VALUE = value;
 	}

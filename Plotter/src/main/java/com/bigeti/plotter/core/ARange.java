@@ -10,7 +10,8 @@ package com.bigeti.plotter.core;
  * @param <T>
  *            Return type
  */
-public abstract class ARange<T extends Number> implements Iterable<T> {
+public abstract class ARange<T extends Number> implements Iterable<T>
+{
 
 	/**
 	 * From
@@ -39,9 +40,12 @@ public abstract class ARange<T extends Number> implements Iterable<T> {
 	 * @throws IllegalArgumentException
 	 *             If "steps" is negative
 	 */
-	public ARange(T from, T to, int steps) throws IllegalArgumentException {
+	public ARange(T from, T to, int steps) throws IllegalArgumentException
+	{
 		if (steps < 0)
+		{
 			throw new IllegalArgumentException("\"steps\" can't be negative.");
+		}
 		this.from = from;
 		this.to = to;
 		this.steps = steps;
@@ -52,7 +56,8 @@ public abstract class ARange<T extends Number> implements Iterable<T> {
 	 * 
 	 * @return From
 	 */
-	public T getFrom() {
+	public T getFrom()
+	{
 		return from;
 	}
 
@@ -61,7 +66,8 @@ public abstract class ARange<T extends Number> implements Iterable<T> {
 	 * 
 	 * @return To
 	 */
-	public T getTo() {
+	public T getTo()
+	{
 		return to;
 	}
 
@@ -70,7 +76,8 @@ public abstract class ARange<T extends Number> implements Iterable<T> {
 	 * 
 	 * @return Steps
 	 */
-	public int getSteps() {
+	public int getSteps()
+	{
 		return steps;
 	}
 }

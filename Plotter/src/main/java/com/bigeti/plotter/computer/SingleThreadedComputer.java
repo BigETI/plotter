@@ -12,24 +12,28 @@ import com.bigeti.plotter.core.Results;
  * @version 1.0.0
  * @since 1.0.0
  *
- * @param <TA>
+ * @param <A>
  *            Result type
- * @param <TB>
+ * @param <B>
  *            Input type
  */
-public class SingleThreadedComputer<TA, TB> implements IComputer<TA, TB> {
+public class SingleThreadedComputer<A, B> implements IComputer<A, B>
+{
 
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see com.plotter.core.IComputer#compute(java.lang.Class,
-	 * java.lang.Iterable, com.plotter.core.IAlgorithm)
+	 * @see com.plotter.core.IComputer#compute(java.lang.Class, java.lang.Iterable,
+	 * com.plotter.core.IAlgorithm)
 	 */
 	@Override
-	public Results<TA, TB> compute(Iterable<TB> values, IAlgorithm<TA, TB> algorithm) {
-		Results<TA, TB> ret = new Results<>();
-		for (TB i : values)
+	public Results<A, B> compute(Iterable<B> values, IAlgorithm<A, B> algorithm)
+	{
+		Results<A, B> ret = new Results<>();
+		for (B i : values)
+		{
 			ret.add(new Result<>(algorithm.compute(i), i));
+		}
 		return ret;
 	}
 

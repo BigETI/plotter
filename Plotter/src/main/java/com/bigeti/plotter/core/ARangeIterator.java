@@ -9,7 +9,8 @@ import java.util.Iterator;
  * @version 1.0.0
  * @since 1.0.0
  */
-public abstract class ARangeIterator<T> implements Iterator<T> {
+public abstract class ARangeIterator<T> implements Iterator<T>
+{
 
 	/**
 	 * From
@@ -41,7 +42,8 @@ public abstract class ARangeIterator<T> implements Iterator<T> {
 	 * @param steps
 	 *            Steps
 	 */
-	public ARangeIterator(T from, T to, int steps) {
+	public ARangeIterator(T from, T to, int steps)
+	{
 		this.from = from;
 		this.to = to;
 		this.steps = steps;
@@ -52,7 +54,8 @@ public abstract class ARangeIterator<T> implements Iterator<T> {
 	 * 
 	 * @return From
 	 */
-	public T getFrom() {
+	public T getFrom()
+	{
 		return from;
 	}
 
@@ -61,7 +64,8 @@ public abstract class ARangeIterator<T> implements Iterator<T> {
 	 * 
 	 * @return To
 	 */
-	public T getTo() {
+	public T getTo()
+	{
 		return to;
 	}
 
@@ -70,7 +74,8 @@ public abstract class ARangeIterator<T> implements Iterator<T> {
 	 * 
 	 * @return Steps
 	 */
-	public int getSteps() {
+	public int getSteps()
+	{
 		return steps;
 	}
 
@@ -79,7 +84,8 @@ public abstract class ARangeIterator<T> implements Iterator<T> {
 	 * 
 	 * @return Step
 	 */
-	public int getStep() {
+	public int getStep()
+	{
 		return step;
 	}
 
@@ -89,7 +95,8 @@ public abstract class ARangeIterator<T> implements Iterator<T> {
 	 * @see java.util.Iterator#hasNext()
 	 */
 	@Override
-	public boolean hasNext() {
+	public boolean hasNext()
+	{
 		return (step < steps);
 	}
 

@@ -1,9 +1,5 @@
-com.plotter.algorithms
-com.plotter.computer
-com.plotter.core
-com.plotter.test
-com.plotter.visuals
-old.com.plotter.algorithms
-old.com.plotter.computer
-old.com.plotter.core
-old.com.plotter.test
+com.bigeti.plotter
+com.bigeti.plotter.algorithms
+com.bigeti.plotter.computer
+com.bigeti.plotter.core
+com.bigeti.plotter.visuals

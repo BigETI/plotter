@@ -20,6 +20,13 @@ import com.bigeti.plotter.core.DoubleRange;
 import com.bigeti.plotter.core.IAlgorithm;
 import com.bigeti.plotter.visuals.PanelGraph;
 
+/**
+ * Test panel graph form class
+ *
+ * @author Ethem Kurt
+ * @version 1.0.0
+ * @since 1.0.0
+ */
 public class TestPanelGraphForm extends JFrame
 {
 
@@ -27,11 +34,6 @@ public class TestPanelGraphForm extends JFrame
 	 * Serial version UID
 	 */
 	private static final long serialVersionUID = -3475129906847394071L;
-
-	/**
-	 * Content pane
-	 */
-	private JPanel contentPane;
 
 	/**
 	 * Panel graph
@@ -112,10 +114,12 @@ public class TestPanelGraphForm extends JFrame
 		final JMenuItem mntmDrawJavaScript = new JMenuItem("Draw JavaScript");
 		mntmDrawJavaScript.addActionListener(arg0 ->
 		{
-			final String script = JOptionPane.showInputDialog(null, "Type in a script to draw: ", "Draw JavaScript input", 1);
+			final String script = JOptionPane.showInputDialog(null, "Type in a script to draw: ",
+					"Draw JavaScript input", 1);
 			try
 			{
-				panelGraph.plot(new DoubleRange(-100.0, 100.0, 1000), new JSAlgorithm("y = " + script + ";"), Color.WHITE);
+				panelGraph.plot(new DoubleRange(-100.0, 100.0, 1000), new JSAlgorithm("y = " + script + ";"),
+						Color.WHITE);
 			}
 			catch (IllegalArgumentException | ScriptException e)
 			{
@@ -130,7 +134,7 @@ public class TestPanelGraphForm extends JFrame
 		final JMenuItem mntmClearGraph = new JMenuItem("Clear graph");
 		mntmClearGraph.addActionListener(arg0 -> panelGraph.clearGraph());
 		mnEdit.add(mntmClearGraph);
-		contentPane = new JPanel();
+		JPanel contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);

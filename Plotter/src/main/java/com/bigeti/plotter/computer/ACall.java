@@ -9,17 +9,18 @@ import java.util.concurrent.Callable;
  * @version 1.0.0
  * @since 1.0.0
  *
- * @param <TA>
+ * @param <A>
  *            Result type
- * @param <TB>
+ * @param <B>
  *            Input type
  */
-public abstract class ACall<TA, TB> implements Callable<TA> {
+public abstract class ACall<A, B> implements Callable<A>
+{
 
 	/**
 	 * Value
 	 */
-	public final TB VALUE;
+	public final B VALUE;
 
 	/**
 	 * Constructor
@@ -27,7 +28,8 @@ public abstract class ACall<TA, TB> implements Callable<TA> {
 	 * @param value
 	 *            Value
 	 */
-	public ACall(TB value) {
+	public ACall(B value)
+	{
 		VALUE = value;
 	}
 

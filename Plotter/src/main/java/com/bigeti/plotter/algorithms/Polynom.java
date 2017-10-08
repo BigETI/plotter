@@ -43,6 +43,7 @@ public class Polynom implements IAlgorithm<Double, Double>
 
 	/*
 	 * (non-Javadoc)
+	 * 
 	 * @see com.plotter.core.IAlgorithm#compute(java.lang.Object)
 	 */
 	@Override
@@ -58,6 +59,7 @@ public class Polynom implements IAlgorithm<Double, Double>
 
 	/*
 	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#toString()
 	 */
 	@Override

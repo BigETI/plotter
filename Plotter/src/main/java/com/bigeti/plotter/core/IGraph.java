@@ -9,12 +9,13 @@ import java.awt.Color;
  * @version 1.0.0
  * @since 1.0.0
  *
- * @param <TA>
+ * @param <A>
  *            Result type
- * @param <TB>
+ * @param <B>
  *            Input type
  */
-public interface IGraph<TA extends Number, TB extends Number> {
+public interface IGraph<A extends Number, B extends Number>
+{
 
 	/**
 	 * Plot algorithm
@@ -27,7 +28,7 @@ public interface IGraph<TA extends Number, TB extends Number> {
 	 *            Line color
 	 * @return Results
 	 */
-	public Results<TA, TB> plot(Iterable<TB> values, IAlgorithm<TA, TB> algorithm, Color line_color);
+	public Results<A, B> plot(Iterable<B> values, IAlgorithm<A, B> algorithm, Color line_color);
 
 	/**
 	 * Clear graph

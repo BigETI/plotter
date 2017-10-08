@@ -7,12 +7,13 @@ package com.bigeti.plotter.core;
  * @version 1.0.0
  * @since 1.0.0
  *
- * @param <TA>
+ * @param <A>
  *            Result type
- * @param <TB>
+ * @param <B>
  *            Input type
  */
-public interface IComputer<TA, TB> {
+public interface IComputer<A, B>
+{
 
 	/**
 	 * Compute algorithm
@@ -23,5 +24,5 @@ public interface IComputer<TA, TB> {
 	 *            Algorithm
 	 * @return Result
 	 */
-	public Results<TA, TB> compute(Iterable<TB> values, IAlgorithm<TA, TB> algorithm);
+	public Results<A, B> compute(Iterable<B> values, IAlgorithm<A, B> algorithm);
 }

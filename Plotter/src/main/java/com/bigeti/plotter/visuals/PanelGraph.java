@@ -18,12 +18,15 @@ import com.bigeti.plotter.core.Results;
  * Panel graph class
  *
  * @author Ethem Kurt
- * @param <TA>
+ * @version 1.0.0
+ * @since 1.0.0
+ * 
+ * @param <A>
  *            Result type
- * @param <TB>
+ * @param <B>
  *            Input type
  */
-public class PanelGraph<TA extends Number, TB extends Number> extends JPanel implements IGraph<TA, TB>
+public class PanelGraph<A extends Number, B extends Number> extends JPanel implements IGraph<A, B>
 {
 
 	/**
@@ -34,17 +37,17 @@ public class PanelGraph<TA extends Number, TB extends Number> extends JPanel imp
 	/**
 	 * Image graph
 	 */
-	private ImageGraph<TA, TB> image_graph = null;
+	private ImageGraph<A, B> image_graph = null;
 
 	/**
 	 * View
 	 */
-	private Point<TA> view;
+	private Point<A> view;
 
 	/**
 	 * Offset
 	 */
-	private Point<TA> offset;
+	private Point<A> offset;
 
 	/**
 	 * Background color
@@ -54,9 +57,9 @@ public class PanelGraph<TA extends Number, TB extends Number> extends JPanel imp
 	/**
 	 * Cached plots
 	 */
-	// private ArrayList<PlotBuffer<TA, TB>> cached_plots = new ArrayList<>();
+	// private ArrayList<PlotBuffer<A, B>> cached_plots = new ArrayList<>();
 
-	private final ArrayList<Result<Results<TA, TB>, Color>> cached_results = new ArrayList<>();
+	private final ArrayList<Result<Results<A, B>, Color>> cached_results = new ArrayList<>();
 
 	/**
 	 * Constructor
@@ -72,7 +75,7 @@ public class PanelGraph<TA extends Number, TB extends Number> extends JPanel imp
 	 * @param background_color
 	 *            Background color
 	 */
-	public PanelGraph(final TA x_view, final TA y_view, final TA x_offset, final TA y_offset, final Color background_color)
+	public PanelGraph(final A x_view, final A y_view, final A x_offset, final A y_offset, final Color background_color)
 	{
 		super();
 		init(x_view, y_view, x_offset, y_offset, background_color);
@@ -94,8 +97,8 @@ public class PanelGraph<TA extends Number, TB extends Number> extends JPanel imp
 	 * @param background_color
 	 *            Background color
 	 */
-	public PanelGraph(final boolean isDoubleBuffered, final TA x_view, final TA y_view, final TA x_offset, final TA y_offset,
-			final Color background_color)
+	public PanelGraph(final boolean isDoubleBuffered, final A x_view, final A y_view, final A x_offset,
+			final A y_offset, final Color background_color)
 	{
 		super(isDoubleBuffered);
 		init(x_view, y_view, x_offset, y_offset, background_color);
@@ -117,7 +120,8 @@ public class PanelGraph<TA extends Number, TB extends Number> extends JPanel imp
 	 * @param background_color
 	 *            Background color
 	 */
-	public PanelGraph(final LayoutManager layout, final TA x_view, final TA y_view, final TA x_offset, final TA y_offset, final Color background_color)
+	public PanelGraph(final LayoutManager layout, final A x_view, final A y_view, final A x_offset, final A y_offset,
+			final Color background_color)
 	{
 		super(layout);
 		init(x_view, y_view, x_offset, y_offset, background_color);
@@ -141,8 +145,8 @@ public class PanelGraph<TA extends Number, TB extends Number> extends JPanel imp
 	 * @param background_color
 	 *            Background color
 	 */
-	public PanelGraph(final LayoutManager layout, final boolean isDoubleBuffered, final TA x_view, final TA y_view, final TA x_offset, final TA y_offset,
-			final Color background_color)
+	public PanelGraph(final LayoutManager layout, final boolean isDoubleBuffered, final A x_view, final A y_view,
+			final A x_offset, final A y_offset, final Color background_color)
 	{
 		super(layout, isDoubleBuffered);
 		init(x_view, y_view, x_offset, y_offset, background_color);
@@ -160,7 +164,7 @@ public class PanelGraph<TA extends Number, TB extends Number> extends JPanel imp
 	 * @param y_offset
 	 *            Y offset
 	 */
-	public PanelGraph(final TA x_view, final TA y_view, final TA x_offset, final TA y_offset)
+	public PanelGraph(final A x_view, final A y_view, final A x_offset, final A y_offset)
 	{
 		super();
 		init(x_view, y_view, x_offset, y_offset, null);
@@ -180,7 +184,8 @@ public class PanelGraph<TA extends Number, TB extends Number> extends JPanel imp
 	 * @param y_offset
 	 *            Y offset
 	 */
-	public PanelGraph(final boolean isDoubleBuffered, final TA x_view, final TA y_view, final TA x_offset, final TA y_offset)
+	public PanelGraph(final boolean isDoubleBuffered, final A x_view, final A y_view, final A x_offset,
+			final A y_offset)
 	{
 		super(isDoubleBuffered);
 		init(x_view, y_view, x_offset, y_offset, null);
@@ -200,7 +205,7 @@ public class PanelGraph<TA extends Number, TB extends Number> extends JPanel imp
 	 * @param y_offset
 	 *            Y offset
 	 */
-	public PanelGraph(final LayoutManager layout, final TA x_view, final TA y_view, final TA x_offset, final TA y_offset)
+	public PanelGraph(final LayoutManager layout, final A x_view, final A y_view, final A x_offset, final A y_offset)
 	{
 		super(layout);
 		init(x_view, y_view, x_offset, y_offset, null);
@@ -222,7 +227,8 @@ public class PanelGraph<TA extends Number, TB extends Number> extends JPanel imp
 	 * @param y_offset
 	 *            Y offset
 	 */
-	public PanelGraph(final LayoutManager layout, final boolean isDoubleBuffered, final TA x_view, final TA y_view, final TA x_offset, final TA y_offset)
+	public PanelGraph(final LayoutManager layout, final boolean isDoubleBuffered, final A x_view, final A y_view,
+			final A x_offset, final A y_offset)
 	{
 		super(layout, isDoubleBuffered);
 		init(x_view, y_view, x_offset, y_offset, null);
@@ -242,14 +248,15 @@ public class PanelGraph<TA extends Number, TB extends Number> extends JPanel imp
 	 * @param backgroundColor
 	 *            Background color
 	 */
-	private void init(final TA x_view, final TA y_view, final TA x_offset, final TA y_offset, final Color backgroundColor)
+	private void init(final A x_view, final A y_view, final A x_offset, final A y_offset, final Color backgroundColor)
 	{
 		view = new Point<>(x_view, y_view);
 		offset = new Point<>(x_offset, y_offset);
 		this.background_color = backgroundColor;
 		if (getWidth() > 0 && getHeight() > 0)
 		{
-			image_graph = new ImageGraph<>(getSize().width, getSize().height, x_view, y_view, x_offset, y_offset, backgroundColor);
+			image_graph = new ImageGraph<>(getSize().width, getSize().height, x_view, y_view, x_offset, y_offset,
+					backgroundColor);
 		}
 	}
 
@@ -258,7 +265,7 @@ public class PanelGraph<TA extends Number, TB extends Number> extends JPanel imp
 	 *
 	 * @return View
 	 */
-	public Point<TA> getView()
+	public Point<A> getView()
 	{
 		return view;
 	}
@@ -268,7 +275,7 @@ public class PanelGraph<TA extends Number, TB extends Number> extends JPanel imp
 	 *
 	 * @return Offset
 	 */
-	public Point<TA> getOffset()
+	public Point<A> getOffset()
 	{
 		return offset;
 	}
@@ -298,8 +305,9 @@ public class PanelGraph<TA extends Number, TB extends Number> extends JPanel imp
 			}
 			if (c)
 			{
-				image_graph = new ImageGraph<>(getWidth(), getHeight(), view.X, view.Y, offset.X, offset.Y, background_color);
-				for (final Result<Results<TA, TB>, Color> i : cached_results)
+				image_graph = new ImageGraph<>(getWidth(), getHeight(), view.X, view.Y, offset.X, offset.Y,
+						background_color);
+				for (final Result<Results<A, B>, Color> i : cached_results)
 				{
 					image_graph.drawResults(i.RESULT, i.VALUE);
 				}
@@ -313,13 +321,14 @@ public class PanelGraph<TA extends Number, TB extends Number> extends JPanel imp
 
 	/*
 	 * (non-Javadoc)
-	 * @see com.plotter.core.IGraph#plot(java.lang.Iterable, com.plotter.core.IAlgorithm,
-	 * java.awt.Color)
+	 * 
+	 * @see com.plotter.core.IGraph#plot(java.lang.Iterable,
+	 * com.plotter.core.IAlgorithm, java.awt.Color)
 	 */
 	@Override
-	public Results<TA, TB> plot(final Iterable<TB> values, final IAlgorithm<TA, TB> algorithm, final Color line_color)
+	public Results<A, B> plot(final Iterable<B> values, final IAlgorithm<A, B> algorithm, final Color line_color)
 	{
-		Results<TA, TB> ret = null;
+		Results<A, B> ret = null;
 		if (image_graph != null)
 		{
 			ret = image_graph.plot(values, algorithm, line_color);
@@ -328,7 +337,7 @@ public class PanelGraph<TA extends Number, TB extends Number> extends JPanel imp
 		}
 		else
 		{
-			final MultiThreadedComputer<TA, TB> computer = new MultiThreadedComputer<>();
+			final MultiThreadedComputer<A, B> computer = new MultiThreadedComputer<>();
 			cached_results.add(new Result<>(computer.compute(values, algorithm), line_color));
 		}
 		return ret;
@@ -336,6 +345,7 @@ public class PanelGraph<TA extends Number, TB extends Number> extends JPanel imp
 
 	/*
 	 * (non-Javadoc)
+	 * 
 	 * @see com.plotter.core.IGraph#clearGraph()
 	 */
 	@Override
@@ -352,6 +362,7 @@ public class PanelGraph<TA extends Number, TB extends Number> extends JPanel imp
 
 	/*
 	 * (non-Javadoc)
+	 * 
 	 * @see javax.swing.JComponent#paintComponent(java.awt.Graphics)
 	 */
 	@Override
@@ -367,6 +378,7 @@ public class PanelGraph<TA extends Number, TB extends Number> extends JPanel imp
 
 	/*
 	 * (non-Javadoc)
+	 * 
 	 * @see java.awt.Component#setSize(int, int)
 	 */
 	@Override

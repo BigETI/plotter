@@ -13,17 +13,35 @@ import com.bigeti.plotter.core.DoubleRange;
 import com.bigeti.plotter.core.IAlgorithm;
 import com.bigeti.plotter.visuals.ImageGraph;
 
+/**
+ * Sinus test class
+ *
+ * @author Ethem Kurt
+ * @version 1.0.0
+ * @since 1.0.0
+ */
 public class SinusTest
 {
-
+	/**
+	 * Sinus algorithm
+	 */
 	private IAlgorithm<Double, Double> sin_algorithm;
 
+	/**
+	 * Set up
+	 * 
+	 * @throws Exception
+	 *             Exception
+	 */
 	@BeforeAll
 	public void setUp() throws Exception
 	{
 		sin_algorithm = value -> Math.sin(value);
 	}
 
+	/**
+	 * Test
+	 */
 	@Test
 	public void test()
 	{
